@@ -1,0 +1,177 @@
+<style>
+.upper-header {
+	background-color: #e4e0d7;
+	padding: 10px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #e1e0e0;
+}
+
+.lower-header {
+	background-color: #000000;
+	color: white;
+}
+
+.navbar {
+	padding: 0.5rem 1rem;
+}
+
+.navbar-nav .nav-link {
+	color: white;
+	margin-right: 15px;
+}
+
+.navbar-nav .nav-link, .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover
+	{
+	color: white !important;
+	margin-right: 15px;
+}
+
+.navbar {
+	width: 100%;
+	justify-content: center;
+}
+
+.navbar-collapse {
+	margin: 0 auto;
+}
+
+.lower-header .container-fluid {
+	display: flex;
+	justify-content: center;
+}
+
+.navbar-toggler {
+	border-color: rgba(255, 255, 255, .1);
+}
+
+.navbar-toggler-icon {
+	background-image:
+		url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.navbar-collapse {
+	background-color: #000;
+}
+
+.navbar-nav .nav-link {
+	color: white;
+}
+</style>
+<div class="upper-header">
+	<a href="/"><img src="/images/C372_GA_Logo.png" alt="logo"
+		style="height: 50px;"></a>
+	<div></div>
+	<div class="login-cart-group"
+		style="display: flex; align-items: center;">
+		<a sec:authorize="!isAuthenticated()" class="nav-link" href="/login"
+			style="margin-right: 20px;">Login</a>
+		<form sec:authorize="isAuthenticated()" th:action="@{/logout}"
+			method="post" style="margin-right: 20px;">
+			<button class="btn nav-link" type="submit">Logout</button>
+		</form>
+		<a class="nav-link active" href="/cart" style="margin-right: 20px;">🛒</a>
+	</div>
+</div>
+
+<header class="lower-header">
+	<nav class="navbar navbar-expand-lg navbar-light">
+		<div class="container-fluid">
+			<!-- Collapsed content for toggling on smaller screens -->
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<i class="fas fa-bars" style="color: white;"></i>
+			</button>
+
+
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<div class="navbar-nav">
+					<a class="nav-link active" href="/">Home</a>
+
+					<div class="nav-item dropdown">
+						<a class="nav-link active dropdown-toggle" href="#"
+							id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> Categories </a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="/categories">View / Edit /
+								Delete Category</a> <a class="dropdown-item" href="/categories/add">Add
+								Category</a>
+						</div>
+					</div>
+					
+					
+					<div class="nav-item dropdown">
+						<a class="nav-link active dropdown-toggle" href="#"
+							id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> Brands </a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="/brands">View / Edit /
+								Delete Brand</a> <a class="dropdown-item" href="/brands/add">Add
+								Brand</a>
+						</div>
+					</div>
+
+
+					<div class="nav-item dropdown">
+						<a class="nav-link active dropdown-toggle" href="#"
+							id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> Gadgets </a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="/gadgets">View / Edit / Delete
+								Gadgets</a> <a class="dropdown-item" href="/gadgets/add">Add
+								Gadget</a>
+						</div>
+					</div>
+
+					<div class="nav-item dropdown"
+						sec:authorize="hasRole('ROLE_ADMIN')">
+						<a class="nav-link active dropdown-toggle" href="#"
+							id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> Members </a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="/members">View / Edit / Delete
+								Members</a> <a class="dropdown-item" href="/members/add">Add
+								Member</a>
+						</div>
+					</div>
+
+
+					<div class="nav-item dropdown"
+						sec:authorize="hasRole('ROLE_ADMIN')">
+						<a class="nav-link active dropdown-toggle" href="#"
+							id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> Feedbacks </a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="/feedbacks">Manage Feedbacks</a>
+						</div>
+					</div>
+
+
+					<div class="nav-item dropdown">
+						<a class="nav-link active dropdown-toggle" href="#"
+							id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> Key information </a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="/aboutUs">About Us</a> <a
+								class="dropdown-item" href="/contactUs">Contact Us</a>
+						</div>
+					</div>
+					
+					<a sec:authorize="hasRole('ROLE_USER')" class="nav-link active" href="/purchase_history" style="margin-right: 20px;">Purchase History</a>
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</nav>
+</header>
+
+<div sec:authorize="isAuthenticated()">
+	<h4 class="text-center">
+		Hello <span sec:authentication="principal.username"></span>!
+	</h4>
+</div>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+<title>GadgetTech</title>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="/bootstrap/css/bootstrap.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+<style>
+.head {
+	font-size: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: red;
+}
+
+.product-item {
+	text-align: center;
+	width: 600px;
+	margin: 10px;
+}
+
+.product-item img {
+	max-width: 100%;
+}
+
+.buy-button {
+	background-color: #333;
+	color: white;
+	padding: 10px;
+	border: none;
+	cursor: pointer;
+}
+
+.highlighter {
+	width: 200px;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	min-height: 80vh;
+}
+
+.product-container {
+	flex: 1;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+p {
+	font-size: 25px;
+}
+
+.items {
+	font-size: 40px;
+	text-align: center;
+}
+
+.card-img-top {
+	width: 225px;
+	height: 200px;
+}
+
+.custom-col {
+	flex: 0 0 auto;
+	width: 20%;
+}
+
+.card {
+	margin-bottom: 1rem;
+}
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+
+body {
+	background: #f1ece3;
+}
+
+body a {
+  text-decoration: none !important;
+}
+
+</style>
+</head>
+
+<body>
+	<div th:replace="/fragments/header"></div>
+	<div class="container">
+
+
+		<p class="items">
+			<b>Welcome to GadgetTech !</b>
+		</p>
+		<br />
+		<p>Start Shopping for the different product categories below:</p>
+		<div class="row text-center">
+			<!-- Card for Phone -->
+			<div class="col category-col">
+				<a href="/gadgets">
+					<div class="card">
+						<img src="/images/phone_logo.jpg" class="card-img-top"
+							alt="Phones">
+						<div class="card-body">
+							<p class="card-title">Phone</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- Card for Laptop -->
+			<div class="col category-col">
+				<a href="/gadgets">
+					<div class="card">
+						<img src="/images/laptop_logo.png" class="card-img-top"
+							alt="Laptops">
+						<div class="card-body">
+							<p class="card-title">Laptop</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- Card for Desktop -->
+			<div class="col category-col">
+				<a href="/gadgets">
+					<div class="card">
+						<img src="/images/desktop_logo.png" class="card-img-top"
+							alt="Desktops">
+						<div class="card-body">
+							<p class="card-title">Desktop</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- Card for Tablets -->
+			<div class="col category-col">
+				<a href="/gadgets">
+					<div class="card">
+						<img src="/images/tablets_logo.png" class="card-img-top"
+							alt="Tablets">
+						<div class="card-body">
+							<p class="card-title">Tablets</p>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<!-- Card for Accessories -->
+			<div class="col category-col">
+				<a href="/gadgets">
+					<div class="card">
+						<img src="/images/accessories_image.jpg" class="card-img-top"
+							alt="Accessories">
+						<div class="card-body">
+							<p class="card-title">Accessories</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<a href="/gadgets" class="btn btn-primary mt-4">Start Shopping
+				Now!</a>
+		</div>
+	</div>
+
+	<div th:replace="/fragments/footer"></div>
+</body>
+</html>

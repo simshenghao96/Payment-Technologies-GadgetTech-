@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>GadgetTech - View brands</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="/bootstrap/css/bootstrap.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+.head {
+	font-size: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: red;
+}
+
+.h1 {
+	text-align: center;
+}
+
+body {
+    background-color: #f1ece3;
+}
+</style>
+
+</head>
+
+<body>
+	<div th:replace="/fragments/header"></div>
+	<div class="container">
+
+		<div class="h1">
+			<u>View Brands</u>
+		</div>
+		<input class="form-control mb-4" id="brandSearch" type="text" placeholder="Search brands...">
+		<table class="table bordered">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name of Brand</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody id="brandsTableBody">
+				<th:block th:each="brand: ${listBrands}">
+					<tr>
+						<td th:text="${brand.id}"></td>
+						<td th:text="${brand.name}"></td>
+						<td>
+							<div class="dropdown">
+								<button class="btn btn-secondary dropdown-toggle" type="button"
+									id="dropdownMenuButton" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">Actions</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<a class="dropdown-item"
+										th:href="@{/brands/edit/{id}(id=${brand.id})}">Edit</a> <a
+										class="dropdown-item"
+										th:href="@{/brands/delete/{id}(id=${brand.id})}">Delete</a>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+		
+	</div>
+	<div th:replace="/fragments/footer"></div>
+	
+	<script>
+    $(document).ready(function() {
+      $("#brandSearch").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#brandsTableBody tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<title>GadgetTech - View Gadgets</title>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="/bootstrap/css/bootstrap.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+body {
+	background: #f1ece3;
+}
+
+.head {
+	font-size: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: red;
+}
+
+.product-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.product-item {
+	text-align: center;
+	width: 600px;
+	margin: 10px;
+}
+
+.product-item img {
+	max-width: 100%;
+}
+
+.buy-button {
+	background-color: #333;
+	color: white;
+	padding: 10px;
+	border: none;
+	cursor: pointer;
+}
+
+.highlighter {
+	width: 200px;
+}
+
+.footer {
+	font-size: 75px;
+}
+
+p {
+	font-size: 25px;
+}
+
+.items {
+	font-size: 40px;
+	text-align: center;
+}
+
+.h1 {
+	text-align: center;
+}
+</style>
+</head>
+
+<body>
+	<div th:replace="/fragments/header"></div>
+	<div class="main-content">
+		<div class="container mt-4">
+
+			<div class="h1 text-center mb-4">
+				<u>View Gadgets</u>
+			</div>
+			<input class="form-control mb-4" id="gadgetSearch" type="text"
+				placeholder="Search gadgets..."> 
+				
+				<!--  <select
+				class="form-control mb-4" id="brandFilter">
+				<option value="">All Brands</option>
+				<th:block th:each="brand : ${listBrands}">
+					<option th:value="${brand.name}" th:text="${brand.name}"></option>
+				</th:block>
+			</select>
+			-->
+			<div class="row">
+				<div th:each="gadget: ${listGadgets}" class="col-lg-4 col-md-6 mb-4">
+					<div class="card h-100">
+						<img
+							th:src="@{/uploads/gadgets/{id}/{imageName}(id=${gadget.id}, imageName=${gadget.imgName})}" />
+						<div class="card-body">
+							<h5 class="card-title" th:text="${gadget.gadgetName}"></h5>
+							<p class="card-text" th:text="${gadget.description}"></p>
+						</div>
+						<div class="card-footer">
+							<small class="text-muted">Gadget ID: <span
+								th:text="${gadget.id}"></span></small><br> <small
+								class="text-muted">Brand: <span
+								th:text="${gadget.brand.name}"></span></small><br> <small
+								class="text-muted">Category: <span
+								th:text="${gadget.category.name}"></span></small><br> <small
+								class="text-muted">Price: <span
+								th:text="${gadget.price}"></span></small><br> <small
+								class="text-muted">Quantity: <span
+								th:text="${gadget.quantity}"></span></small>
+						</div>
+						<div class="card-footer">
+							<a th:href="@{/gadgets/{id}(id=${gadget.id})}"
+								class="btn btn-primary me-2">View</a>
+							<div sec:authorize="hasRole('ROLE_ADMIN')">
+								<div class="dropdown">
+									<button class="btn btn-secondary dropdown-toggle" type="button"
+										id="dropdownMenuButton" data-toggle="dropdown"
+										aria-haspopup="true" aria-expanded="false">Actions</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<a class="dropdown-item"
+											th:href="@{/gadgets/edit/{id}(id=${gadget.id})}">Edit</a> <a
+											class="dropdown-item"
+											th:href="@{/gadgets/delete/{id}(id=${gadget.id})}">Delete</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div th:replace="/fragments/footer"></div>
+
+<script>
+$(document).ready(function(){
+  $("#gadgetSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $(".row .col-lg-4").filter(function() {
+      $(this).toggle($(this).find('.card-title').text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+
+</body>
+
+</html>

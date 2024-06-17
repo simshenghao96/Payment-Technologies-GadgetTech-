@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>GadgetTech - View Feedbacks</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="/bootstrap/css/bootstrap.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+.head {
+	font-size: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: red;
+}
+
+.h1 {
+	text-align: center;
+}
+
+body {
+    background-color: #f1ece3;
+}
+</style>
+
+</head>
+
+<body>
+<div th:replace="/fragments/header"></div>
+	<div class="container">
+		
+		<div class="h1">
+			<u>Manage Feedbacks</u>
+		</div>
+		<table class="table bordered">
+			<thead>
+				<tr>
+					<th>Feedback ID</th>
+					<th>Email</th>
+					<th>Name</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="feedback: ${listFeedbacks}">
+					<tr>
+						<td><a th:href="@{/feedbacks/{id}(id=${feedback.id})}" th:text="${feedback.id}"></a></td>
+						<td th:text="${feedback.email}"></td>
+						<td th:text="${feedback.name}"></td>
+						<td>
+							<div class="dropdown">
+								<button class="btn btn-secondary dropdown-toggle" type="button"
+									id="dropdownMenuButton" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">Actions</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<a class="dropdown-item"
+										th:href="@{/feedbacks/edit/{id}(id=${feedback.id})}">Edit</a>
+									<a class="dropdown-item"
+										th:href="@{/feedbacks/delete/{id}(id=${feedback.id})}">Delete</a>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+		
+	</div>
+	<div th:replace="/fragments/footer"></div>
+</body>
+
+</html>

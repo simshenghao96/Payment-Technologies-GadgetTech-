@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>GadgetTech - About Us</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="/bootstrap/css/bootstrap.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+body {
+    background-color: #f1ece3;
+}
+
+.head {
+	font-size: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: red;
+}
+
+#map {
+	height: 400px;
+}
+/* Make the form take up the full height to match the map */
+#feedbackForm {
+	height: 400px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+#feedbackForm>* {
+	margin-bottom: 15px; /* Add some space between form elements */
+}
+</style>
+
+
+
+</head>
+
+
+<body>
+	<div th:replace="/fragments/header"></div>
+	<div class="container">
+
+		<h1>Contact Us</h1>
+		<p>Contact Us by the following methods:
+		<ul>
+			<li>Social Media Account</li>
+			<li>Email</li>
+		</ul>
+
+		<div class="row">
+			<!-- Map Column -->
+			<div class="col-md-6">
+				<div id="map"></div>
+			</div>
+			<!-- Feedback Form Column -->
+			<div class="col-md-6">
+				<form id="feedbackForm" method="post" th:action="@{/contactUs/save}"
+					enctype="multipart/form-data" novalidate>
+					<h2>Feedback Form</h2>
+					<div id="successMessage" style="display: none;">
+						<p class="alert alert-success">Feedback submitted
+							successfully!</p>
+					</div>
+					<input type="text" id="name" name="name" placeholder="Your name..."
+						required> <input type="email" id="email" name="email"
+						placeholder="Your email..." required>
+					<textarea id="message" name="message"
+						placeholder="Your feedback..." required></textarea>
+					<button type="submit" class="btn btn-primary">Submit
+						Feedback</button>
+				</form>
+			</div>
+
+		</div>
+
+	</div>
+	<div th:replace="/fragments/footer"></div>
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<script>
+	// For the markup in the leaflet map API
+		var map = L.map('map').setView(
+				[ 1.4430669581156466, 103.785509950786 ], 13);
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom : 19,
+			attribution : '© OpenStreetMap contributors'
+		}).addTo(map);
+
+		var marker = L.marker([ 1.4430669581156466, 103.785509950786 ]).addTo(
+				map).bindPopup('<b>GadgetTech Store</b><br />9 Woodlands Ave.')
+				.openPopup();
+		
+		// For the feedback Form
+		 $(document).ready(function() {
+		        $("#feedbackForm").submit(function(event) {
+		            event.preventDefault(); // Prevent the form from submitting via the browser
+
+		            var formData = $(this).serialize(); // Serialize the form data
+
+		            $.ajax({
+		                type: "POST",
+		                url: "/contactUs/save", 
+		                data: formData,
+		                success: function(response) {
+		                    $("#successMessage").show();
+		                    setTimeout(function() { $("#successMessage").hide(); }, 5000);
+		                    $("#feedbackForm")[0].reset();
+		                },
+		                error: function(xhr, status, error) {
+		                    alert("An error occurred: " + error);
+		                }
+		            });
+		        });
+		    });
+	</script>
+</body>

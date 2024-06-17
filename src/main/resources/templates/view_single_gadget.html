@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>GadgetTech - View Single Item</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="/bootstrap/css/bootstrap.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+.head {
+	font-size: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: red;
+}
+
+body {
+    background-color: #f1ece3;
+}
+</style>
+
+<body>
+	<div th:replace="fragments/header"></div>
+	<div class="container">
+
+		<main class="d-flex flex-column align-items-center text-center my-5">
+
+			<h1 th:text="${gadget.gadgetName}"></h1>
+			<h5 th:text="${gadget.category.name}"></h5>
+			<h5 th:text="${gadget.brand.name}"></h5>
+			<img
+				th:src="@{/uploads/gadgets/{id}/{imageName}(id=${gadget.id}, imageName=${gadget.imgName})}" />
+			<p th:text="${gadget.description}"></p>
+			<p>
+				$<span th:text="${gadget.price}"></span>
+			</p>
+			<form th:action="@{/cart/add/{id}(id=${gadget.id})}" method="POST"
+				onsubmit="return validateQuantity()">
+				<input type="number" name="quantity" id="quantityInput" value="1">
+				<p>
+					Quantity available: <span id="availableQuantity"
+						th:text="${gadget.quantity}"></span>
+				</p>
+				<div th:if="${gadget.quantity > 0}">
+					<button class="btn btn-primary" type="submit">Add to Cart</button>
+				</div>
+				<div th:unless="${gadget.quantity > 0}">
+					<p>
+						<b>Item is out of stock</b>
+					</p>
+				</div>
+			</form>
+		</main>
+
+	</div>
+	<div th:replace="fragments/footer"></div>
+</body>
+</html>

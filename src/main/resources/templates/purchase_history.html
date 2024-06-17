@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>GadgetTech - View Purchase History</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="/bootstrap/css/bootstrap.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
+<style>
+body {
+    background-color: #f1ece3;
+}
+</style>
+</head>
+
+
+<body>
+	<div th:replace="fragments/header"></div>
+	<div class="container mt-4">
+		<div class="h1"
+			style="text-align: center; text-decoration: underline;">History
+			of Past Purchases</div>
+		<br>
+		<table class="table bordered">
+			<thead>
+				<tr>
+					<th>Transaction ID</th>
+					<th>Order ID</th>
+					<th>Item</th>
+					<th>Quantity</th>
+					<th>Price</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="purchase: ${itemPurchased}">
+					<tr>
+						<td th:text="${purchase.transactionId}"></td>
+						<td th:text="${purchase.orderId}"></td>
+						<td th:text="${purchase.gadget.gadgetName}"></td>
+						<td th:text="${purchase.quantity}"></td>
+						<td th:text="${purchase.subTotal}"></td>
+						<td><img width="100"
+							th:src="@{/uploads/gadgets/{id}/{imageName}(id=${purchase.gadget.id}, imageName=${purchase.gadget.imgName})}" /></td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+	<br>
+	<div th:replace="fragments/footer"></div>
+</body>
+</html>
